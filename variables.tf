@@ -1,50 +1,63 @@
-variable "name" {}
-
-variable "kms_key_arn" {}
-
 variable "namespace" {
-  default = ""
+  type        = "string"
+  description = "Namespace (e.g. `cp` or `cloudposse`)"
 }
 
 variable "stage" {
-  default = ""
+  type        = "string"
+  description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
-variable "attributes" {
-  type    = "list"
-  default = []
-}
-
-variable "ssm_actions" {
-  type    = "list"
-  default = ["ssm:DescribeParameters", "ssm:GetParameters"]
-}
-
-variable "ssm_resources" {
-  type    = "list"
-  default = ["*"]
-}
-
-variable "tags" {
-  type    = "map"
-  default = {}
+variable "name" {
+  type        = "string"
+  description = "Application or solution name (e.g. `app`)"
 }
 
 variable "delimiter" {
-  default = "-"
+  type        = "string"
+  default     = "-"
+  description = "Delimiter to be used between `namespace`, `stage`, `name` and `attributes`"
+}
+
+variable "attributes" {
+  type        = "list"
+  default     = []
+  description = "Additional attributes (e.g. `1`)"
+}
+
+variable "tags" {
+  type        = "map"
+  default     = {}
+  description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
+}
+
+variable "kms_key_arn" {
+  description = "ARN of the KMS Key which will decrypt Secret Strings"
+}
+
+variable "ssm_actions" {
+  type        = "list"
+  default     = ["ssm:DescribeParameters", "ssm:GetParameters"]
+  description = "Actions to allow for in default policy"
+}
+
+variable "ssm_resources" {
+  type        = "list"
+  default     = ["*"]
+  description = "Resources to apply default policy actions"
 }
 
 variable "force_destroy" {
-  description = "Destroy even if it has non-Terraform-managed IAM access keys, login profile or MFA devices."
   default     = "false"
+  description = "Destroy even if it has non-Terraform-managed IAM access keys, login profile or MFA devices."
 }
 
 variable "path" {
-  description = "Path in which to create the user"
   default     = "/"
+  description = "Path in which to create the user"
 }
 
 variable "enabled" {
-  description = "Set to false to prevent the module from creating any resources"
   default     = "true"
+  description = "Set to false to prevent the module from creating any resources"
 }

@@ -12,9 +12,10 @@ We do not recommend creating IAM users this way for any other purpose.
 ```hcl
 module "circleci" {
   source     = "git::https://github.com/cloudposse/terraform-aws-iam-chamber-user.git?ref=master"
-  namespace  = "cp"
-  stage      = "staging"
-  name       = "chamber"
+  namespace   = "cp"
+  stage       = "staging"
+  name        = "chamber"
+  kms_key_arn = "arn:aws:kms:region:account-id:key/CMK"
 }
 ```
 
@@ -31,7 +32,7 @@ module "circleci" {
 | `force_destroy` | `false` | Destroy even if it has non-Terraform-managed IAM access keys, login profile or MFA devices. |    No    |
 | `path`          |   `/`   | Path in which to create the user                                                            |    No    |
 | `enabled`       | `true`  | Set to `false` to prevent the module from creating any resources                            |    No    |
-| `kms_key_arn`   |   ``    | KMS key_arn used if Secure Strings are stored in Parameter Store to decrypt secrets.        |    No    |
+| `kms_key_arn`   |   ``    | KMS key_arn used if Secure Strings are stored in Parameter Store to decrypt secrets.        |    Yes    |
 | `ssm_actions`   |  `["ssm:DescribeParameters","ssm:GetParameters"]`   | Actions to allow in policy                       |    No    |
 | `ssm_resources` |  `["*"]`   | Resources to apply actions specified in policy i.e. `["arn:aws:ssm:region:account-id:parameter/ci-*"]`  |    No    |
 
