@@ -11,12 +11,9 @@ module "label" {
 
 data "aws_iam_policy_document" "default" {
   statement {
-    actions = [
-      "ssm:DescribeParameters",
-      "ssm:GetParameters",
-    ]
+    actions = "${var.ssm_actions}"
 
-    resources = ["*"]
+    resources = "${var.ssm_resources}"
   }
 
   statement {
@@ -31,10 +28,14 @@ data "aws_iam_policy_document" "default" {
 }
 
 module "chamber_user" {
-  source    = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=master"
-  name      = "${var.name}"
-  enabled   = "${var.enabled}"
-  namespace = "${var.namespace}"
-  stage     = "${var.stage}"
-  policy    = "${data.aws_iam_policy_document.default.json}"
+  source        = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=master"
+  name          = "${var.name}"
+  enabled       = "${var.enabled}"
+  attributes    = "${var.attributes}"
+  tags          = "${var.tags}"
+  force_destroy = "${var.force_destroy}"
+  path          = "${var.path}"
+  namespace     = "${var.namespace}"
+  stage         = "${var.stage}"
+  policy        = "${data.aws_iam_policy_document.default.json}"
 }

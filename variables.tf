@@ -15,6 +15,16 @@ variable "attributes" {
   default = []
 }
 
+variable "ssm_actions" {
+  type    = "list"
+  default = ["ssm:DescribeParameters", "ssm:GetParameters"]
+}
+
+variable "ssm_resources" {
+  type    = "list"
+  default = ["*"]
+}
+
 variable "tags" {
   type    = "map"
   default = {}
