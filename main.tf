@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "default" {
 }
 
 module "chamber_user" {
-  count       = "${var.enabled == "true" ? 1 : 0}"
+  enabled     = "${var.enabled}"
 	source      = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=master"
 	namespace   = "${var.namespace}"
 	stage       = "${var.stage}"
