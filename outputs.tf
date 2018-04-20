@@ -1,19 +1,19 @@
 output "user_name" {
-  value = "${join("", module.chamber_user.aws_iam_user.default.*.name)}"
+  value = "${join("", module.chamber_user.user_name)}"
 }
 
 output "user_arn" {
-  value = "${join("", module.chamber_user.aws_iam_user.default.*.arn)}"
+  value = "${join("", module.chamber_user.user_arn)}"
 }
 
 output "user_unique_id" {
-  value = "${join("", module.chamber_user.aws_iam_user.default.*.unique_id)}"
+  value = "${join("", module.chamber_user.user_unique_id)}"
 }
 
 output "access_key_id" {
-  value = "${join("", module.chamber_user.aws_iam_access_key.default.*.id)}"
+  value = "${join("", module.chamber_user.access_key_id)}"
 }
 
 output "secret_access_key" {
-  value = "${join("", module.chamber_user.aws_iam_access_key.default.*.secret)}"
+  value = "${join("", module.chamber_user.secret_access_key)}"
 }
