@@ -1,5 +1,7 @@
 variable "name" {}
 
+variable "kms_key_arn" {}
+
 variable "namespace" {
   default = ""
 }
@@ -35,18 +37,4 @@ variable "path" {
 variable "enabled" {
   description = "Set to false to prevent the module from creating any resources"
   default     = "true"
-}
-
-data "aws_iam_policy_document" "default" {
-	statement {
-		actions = [
-		]
-
-		resources = ["*"]
-	}
-}
-
-variable "policy" {
-  description = "User policy in json format"
-  default     = "${data.aws_iam_policy_document.default.json}"
 }

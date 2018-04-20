@@ -9,11 +9,31 @@ module "label" {
   enabled    = "${var.enabled}"
 }
 
+data "aws_iam_policy_document" "default" {
+	statement {
+		actions = [
+      "ssm:DescribeParameters",
+      "ssm:GetParameters"
+		]
+
+		resources = ["*"]
+	},
+  statement {
+    actions = [
+      "kms:Decrypt"
+    ]
+
+    resources = [
+      "${var.kms_key_arn}"
+    ]
+  }
+}
+
 module "chamber_user" {
-  count     = "${var.enabled == "true" ? 1 : 0}"
-	source    = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=master"
-	namespace = "${var.namespace}"
-	stage     = "${var.stage}"
-	name      = "${module.label.id}"
-	policy    = "${var.policy}"
+  count       = "${var.enabled == "true" ? 1 : 0}"
+	source      = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=master"
+	namespace   = "${var.namespace}"
+	stage       = "${var.stage}"
+	name        = "${module.label.id}"
+	policy      = "${data.aws_iam_policy_document.default.json}"
 }
