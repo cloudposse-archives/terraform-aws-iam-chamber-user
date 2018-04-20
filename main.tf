@@ -10,30 +10,31 @@ module "label" {
 }
 
 data "aws_iam_policy_document" "default" {
-	statement {
-		actions = [
-      "ssm:DescribeParameters",
-      "ssm:GetParameters"
-		]
-
-		resources = ["*"]
-	},
   statement {
     actions = [
-      "kms:Decrypt"
+      "ssm:DescribeParameters",
+      "ssm:GetParameters",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    actions = [
+      "kms:Decrypt",
     ]
 
     resources = [
-      "${var.kms_key_arn}"
+      "${var.kms_key_arn}",
     ]
   }
 }
 
 module "chamber_user" {
-  enabled     = "${var.enabled}"
-	source      = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=master"
-	namespace   = "${var.namespace}"
-	stage       = "${var.stage}"
-	name        = "${module.label.id}"
-	policy      = "${data.aws_iam_policy_document.default.json}"
+  source    = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=master"
+  name      = "${var.name}"
+  enabled   = "${var.enabled}"
+  namespace = "${var.namespace}"
+  stage     = "${var.stage}"
+  policy    = "${data.aws_iam_policy_document.default.json}"
 }
