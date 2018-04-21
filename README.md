@@ -15,7 +15,7 @@ module "circleci" {
   namespace   = "cp"
   stage       = "staging"
   name        = "chamber"
-  kms_key_arn = "arn:aws:kms:region:account-id:key/CMK"
+  kms_key_arn = "arn:aws:kms:us-west-2:253234095951:key/abfd558e-3275-4ece-84e5-b35abc46c243"
 }
 ```
 
