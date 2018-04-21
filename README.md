@@ -1,4 +1,4 @@
-# terraform-aws-iam-chamber-user [![Build Status](https://travis-ci.org/cloudposse/terraform-aws-iam-chamber-user.svg)](https://travis-ci.org/cloudposse/terraform-aws-iam-chamber-user)
+# terraform-aws-iam-chamber-user [![Build Status](https://travis-ci.org/cloudposse/terraform-aws-iam-chamber-user.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-aws-iam-chamber-user)
 
 Terraform Module to provision a basic IAM [chamber](https://github.com/segmentio/chamber) user with access to SSM parameters and KMS key to decrypt secrets, suitable for CI/CD Systems
 (_e.g._ TravisCI, CircleCI, CodeFresh) or systems which are *external* to AWS that cannot leverage [AWS IAM Instance Profiles](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html).
@@ -114,8 +114,8 @@ or [hire us][hire] to help build your next cloud platform.
 
 ### Contributors
 
-| [![Erik Osterman][erik_img]][erik_web]<br/>[Erik Osterman][erik_web] | [![Andriy Knysh][andriy_img]][andriy_web]<br/>[Andriy Knysh][andriy_web] |  [![Sarkis Varozian][sarkis_img]][sarkis_web]<br/>[Sarkis Varozian][sarkis_web]
-|-------------------------------------------------------|------------------------------------------------------------------|
+| [![Erik Osterman][erik_img]][erik_web]<br/>[Erik Osterman][erik_web] | [![Andriy Knysh][andriy_img]][andriy_web]<br/>[Andriy Knysh][andriy_web] |  [![Sarkis Varozian][sarkis_img]][sarkis_web]<br/>[Sarkis Varozian][sarkis_web] |
+|------------------------------|------------------------------|------------------------------|
 
   [erik_img]: http://s.gravatar.com/avatar/88c480d4f73b813904e00a5695a454cb?s=144
   [erik_web]: https://github.com/osterman/
