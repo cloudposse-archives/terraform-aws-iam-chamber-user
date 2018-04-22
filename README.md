@@ -1,23 +1,23 @@
 # terraform-aws-iam-chamber-user [![Build Status](https://travis-ci.org/cloudposse/terraform-aws-iam-chamber-user.svg?branch=master)](https://travis-ci.org/cloudposse/terraform-aws-iam-chamber-user)
 
-Terraform Module to provision a basic IAM [chamber](https://github.com/segmentio/chamber) user with access to SSM parameters and KMS key to decrypt secrets, suitable for CI/CD Systems
+Terraform module to provision a basic IAM [chamber](https://github.com/segmentio/chamber) user with access to SSM parameters and KMS key to decrypt secrets, suitable for CI/CD systems
 (_e.g._ TravisCI, CircleCI, CodeFresh) or systems which are *external* to AWS that cannot leverage [AWS IAM Instance Profiles](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2_instance-profiles.html).
 
 We do not recommend creating IAM users this way for any other purpose.
 
+
 ## Usage
 
-### Simple usage
-
 ```hcl
-module "circleci" {
-  source     = "git::https://github.com/cloudposse/terraform-aws-iam-chamber-user.git?ref=master"
+module "chamber_user" {
+  source      = "git::https://github.com/cloudposse/terraform-aws-iam-chamber-user.git?ref=master"
   namespace   = "cp"
-  stage       = "staging"
+  stage       = "prod"
   name        = "chamber"
   kms_key_arn = "arn:aws:kms:us-west-2:253234095951:key/abfd558e-3275-4ece-84e5-b35abc46c243"
 }
 ```
+
 
 ## Variables
 
@@ -25,26 +25,28 @@ module "circleci" {
 |:----------------|:-------:|:--------------------------------------------------------------------------------------------|:--------:|
 | `namespace`     |   ``    | Namespace (e.g. `cp` or `cloudposse`)                                                       |   Yes    |
 | `stage`         |   ``    | Stage (e.g. `prod`, `dev`, `staging`)                                                       |   Yes    |
-| `name`          |   ``    | Name  (e.g. `bastion` or `db`)                                                              |   Yes    |
-| `attributes`    |  `[]`   | Additional attributes (e.g. `policy` or `role`)                                             |    No    |
+| `name`          |   ``    | Name  (e.g. `app`)                                                                          |   Yes    |
+| `kms_key_arn`   |   ``    | KMS key ARN used to decrypt secrets in Parameter Store                                      |   Yes    |
+| `attributes`    |  `[]`   | Additional attributes (e.g. `1`)                                                            |    No    |
 | `tags`          |  `{}`   | Additional tags  (e.g. `map("BusinessUnit","XYZ")`                                          |    No    |
-| `delimiter`     |   `-`   | Delimiter to be used between `name`, `namespace`, `stage`, `arguments`, etc.                |    No    |
-| `force_destroy` | `false` | Destroy even if it has non-Terraform-managed IAM access keys, login profile or MFA devices. |    No    |
+| `delimiter`     |   `-`   | Delimiter to be used between `namespace`, `stage`, `name` and `attributes`                  |    No    |
+| `force_destroy` | `false` | Destroy even if it has non-Terraform-managed IAM access keys, login profiles or MFA devices |    No    |
 | `path`          |   `/`   | Path in which to create the user                                                            |    No    |
 | `enabled`       | `true`  | Set to `false` to prevent the module from creating any resources                            |    No    |
-| `kms_key_arn`   |   ``    | KMS key_arn used if Secure Strings are stored in Parameter Store to decrypt secrets.        |    Yes    |
-| `ssm_actions`   |  `["ssm:DescribeParameters","ssm:GetParameters"]`   | Actions to allow in policy                       |    No    |
-| `ssm_resources` |  `["*"]`   | Resources to apply actions specified in policy i.e. `["arn:aws:ssm:region:account-id:parameter/ci-*"]`  |    No    |
+| `ssm_actions`   | `["ssm:DescribeParameters","ssm:GetParameters"]`   | Actions to allow in the policy                   |    No    |
+| `ssm_resources` | `["*"]` | Resources to apply the actions specified in the policy                                      |    No    |
+
 
 ## Outputs
 
 | Name                | Description                                                                 |
 |:--------------------|:----------------------------------------------------------------------------|
 | `user_name`         | Normalized IAM user name                                                    |
-| `user_arn`          | The ARN assigned by AWS for this user                                       |
-| `user_unique_id`    | The unique ID assigned by AWS                                               |
+| `user_arn`          | The ARN assigned by AWS for the user                                        |
+| `user_unique_id`    | The user unique ID assigned by AWS                                          |
 | `access_key_id`     | The access key ID                                                           |
 | `secret_access_key` | The secret access key. This will be written to the state file in plain-text |
+
 
 ## Help
 
@@ -72,6 +74,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 **NOTE:** Be sure to merge the latest from "upstream" before making a pull request!
 
+
 ## License
 
 [APACHE 2.0](LICENSE) © 2018 [Cloud Posse, LLC](https://cloudposse.com)
@@ -95,6 +98,7 @@ See [LICENSE](LICENSE) for full details.
     specific language governing permissions and limitations
     under the License.
 
+
 ## About
 
 `terraform-aws-iam-chamber-user` is maintained and funded by [Cloud Posse, LLC][website].
@@ -112,7 +116,8 @@ or [hire us][hire] to help build your next cloud platform.
   [community]: https://github.com/cloudposse/
   [hire]: https://cloudposse.com/contact/
 
-### Contributors
+
+## Contributors
 
 | [![Erik Osterman][erik_img]][erik_web]<br/>[Erik Osterman][erik_web] | [![Andriy Knysh][andriy_img]][andriy_web]<br/>[Andriy Knysh][andriy_web] |  [![Sarkis Varozian][sarkis_img]][sarkis_web]<br/>[Sarkis Varozian][sarkis_web] |
 |------------------------------|------------------------------|------------------------------|
