@@ -32,24 +32,24 @@ variable "tags" {
 }
 
 variable "kms_key_arn" {
-  description = "ARN of the KMS Key which will decrypt Secret Strings"
+  description = "ARN of the KMS key which will decrypt secret strings"
 }
 
 variable "ssm_actions" {
   type        = "list"
   default     = ["ssm:DescribeParameters", "ssm:GetParameters"]
-  description = "Actions to allow for in default policy"
+  description = "Actions to allow in the policy"
 }
 
 variable "ssm_resources" {
   type        = "list"
   default     = ["*"]
-  description = "Resources to apply default policy actions"
+  description = "Resources to apply the actions specified in the policy"
 }
 
 variable "force_destroy" {
   default     = "false"
-  description = "Destroy even if it has non-Terraform-managed IAM access keys, login profile or MFA devices."
+  description = "Destroy even if it has non-Terraform-managed IAM access keys, login profiles or MFA devices"
 }
 
 variable "path" {
