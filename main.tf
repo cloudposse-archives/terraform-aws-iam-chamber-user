@@ -1,8 +1,8 @@
 data "aws_iam_policy_document" "default" {
   statement {
-    actions = "${var.ssm_actions}"
+    actions = ["${var.ssm_actions}"]
 
-    resources = "${var.ssm_resources}"
+    resources = ["${var.ssm_resources}"]
   }
 
   statement {
