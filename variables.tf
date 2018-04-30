@@ -37,7 +37,7 @@ variable "kms_key_arn" {
 
 variable "ssm_actions" {
   type        = "list"
-  default     = ["ssm:DescribeParameters", "ssm:GetParameters"]
+  default     = ["ssm:GetParametersByPath", "ssm:GetParameters"]
   description = "Actions to allow in the policy"
 }
 

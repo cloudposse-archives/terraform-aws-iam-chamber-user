@@ -1,18 +1,20 @@
 data "aws_iam_policy_document" "default" {
   statement {
-    actions = ["${var.ssm_actions}"]
-
-    resources = ["${var.ssm_resources}"]
+    actions   = ["ssm:DescribeParameters"]
+    resources = ["*"]
+    effect    = "Allow"
   }
 
   statement {
-    actions = [
-      "kms:Decrypt",
-    ]
+    actions   = ["${var.ssm_actions}"]
+    resources = ["${var.ssm_resources}"]
+    effect    = "Allow"
+  }
 
-    resources = [
-      "${var.kms_key_arn}",
-    ]
+  statement {
+    actions   = ["kms:Decrypt"]
+    resources = ["${var.kms_key_arn}"]
+    effect    = "Allow"
   }
 }
 
