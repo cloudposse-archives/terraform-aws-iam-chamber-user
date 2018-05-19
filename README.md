@@ -8,13 +8,24 @@ We do not recommend creating IAM users this way for any other purpose.
 
 ## Usage
 
-```hcl
+```terraform
 module "chamber_user" {
-  source      = "git::https://github.com/cloudposse/terraform-aws-iam-chamber-user.git?ref=master"
-  namespace   = "cp"
-  stage       = "prod"
-  name        = "chamber"
-  kms_key_arn = "arn:aws:kms:us-west-2:253234095951:key/abfd558e-3275-4ece-84e5-b35abc46c243"
+  source        = "git::https://github.com/cloudposse/terraform-aws-iam-chamber-user.git?ref=master"
+  namespace     = "cp"
+  stage         = "prod"
+  name          = "chamber"
+  kms_key_alias = "alias/parameter_store_key"
+}
+
+module "kms_key" {
+  source                  = "git::https://github.com/cloudposse/terraform-aws-kms-key.git?ref=master"
+  namespace               = "cp"
+  stage                   = "prod"
+  name                    = "key"
+  description             = "KMS key for chamber"
+  deletion_window_in_days = 10
+  enable_key_rotation     = "true"
+  alias                   = "alias/parameter_store_key"
 }
 ```
 
@@ -26,7 +37,7 @@ module "chamber_user" {
 | `namespace`     |   ``    | Namespace (e.g. `cp` or `cloudposse`)                                                       |   Yes    |
 | `stage`         |   ``    | Stage (e.g. `prod`, `dev`, `staging`)                                                       |   Yes    |
 | `name`          |   ``    | Name  (e.g. `app`)                                                                          |   Yes    |
-| `kms_key_arn`   |   ``    | KMS key ARN used to decrypt secrets in Parameter Store                                      |   Yes    |
+| `kms_key_alias` |   `alias/parameter_store_key`    | KMS key alias used to decrypt secrets in Parameter Store                                    |   Yes    |
 | `attributes`    |  `[]`   | Additional attributes (e.g. `1`)                                                            |    No    |
 | `tags`          |  `{}`   | Additional tags  (e.g. `map("BusinessUnit","XYZ")`                                          |    No    |
 | `delimiter`     |   `-`   | Delimiter to be used between `namespace`, `stage`, `name` and `attributes`                  |    No    |

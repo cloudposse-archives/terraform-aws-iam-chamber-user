@@ -32,7 +32,13 @@ variable "tags" {
 }
 
 variable "kms_key_arn" {
-  description = "ARN of the KMS key which will decrypt secret strings"
+  description = "ARN of the KMS key which will decrypt secret strings [DEPRECIATED: NO LONGER USED]"
+  default     = ""
+}
+
+variable "kms_key_alias" {
+  description = "Alias of the KMS key which will decrypt secret strings"
+  default     = "alias/parameter_store_key"
 }
 
 variable "ssm_actions" {
