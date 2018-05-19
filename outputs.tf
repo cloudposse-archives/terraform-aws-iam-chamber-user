@@ -23,7 +23,6 @@
 #   description = "The secret access key. This will be written to the state file in plain-text"
 # }
 
-
 output "user_name" {
   value = "${join("", aws_iam_user.default.*.name)}"
 }
