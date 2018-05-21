@@ -29,7 +29,6 @@ module "chamber_user" {
   enabled       = "${var.enabled}"
   force_destroy = "${var.force_destroy}"
   path          = "${var.path}"
-  policy        = "${data.aws_iam_policy_document.default.json}"
 }
 
 resource "aws_iam_user_policy" "chamber_user" {
