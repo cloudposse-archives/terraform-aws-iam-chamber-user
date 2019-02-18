@@ -31,6 +31,7 @@ module "chamber_user" {
 }
 
 resource "aws_iam_user_policy" "chamber_user" {
+  count  = "${var.enabled == "true" ? 1 : 0}"
   name   = "${module.chamber_user.user_name}"
   user   = "${module.chamber_user.user_name}"
   policy = "${data.aws_iam_policy_document.default.json}"
