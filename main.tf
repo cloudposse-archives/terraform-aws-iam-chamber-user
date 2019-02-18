@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "default" {
 }
 
 module "chamber_user" {
-  source        = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=tags/0.3.0"
+  source        = "git::https://github.com/cloudposse/terraform-aws-iam-system-user.git?ref=tags/0.4.1"
   namespace     = "${var.namespace}"
   stage         = "${var.stage}"
   name          = "${var.name}"
@@ -31,6 +31,7 @@ module "chamber_user" {
 }
 
 resource "aws_iam_user_policy" "chamber_user" {
+  count  = "${var.enabled == "true" ? 1 : 0}"
   name   = "${module.chamber_user.user_name}"
   user   = "${module.chamber_user.user_name}"
   policy = "${data.aws_iam_policy_document.default.json}"
