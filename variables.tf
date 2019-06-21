@@ -1,32 +1,32 @@
 variable "namespace" {
-  type        = "string"
+  type        = string
   description = "Namespace (e.g. `cp` or `cloudposse`)"
 }
 
 variable "stage" {
-  type        = "string"
+  type        = string
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
 }
 
 variable "name" {
-  type        = "string"
+  type        = string
   description = "Application or solution name (e.g. `app`)"
 }
 
 variable "delimiter" {
-  type        = "string"
+  type        = string
   default     = "-"
   description = "Delimiter to be used between `namespace`, `stage`, `name` and `attributes`"
 }
 
 variable "attributes" {
-  type        = "list"
+  type        = list(string)
   default     = []
   description = "Additional attributes (e.g. `1`)"
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map(string)
   default     = {}
   description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)"
 }
@@ -36,13 +36,13 @@ variable "kms_key_arn" {
 }
 
 variable "ssm_actions" {
-  type        = "list"
+  type        = list(string)
   default     = ["ssm:GetParametersByPath", "ssm:GetParameters"]
   description = "Actions to allow in the policy"
 }
 
 variable "ssm_resources" {
-  type        = "list"
+  type        = list(string)
   default     = ["*"]
   description = "Resources to apply the actions specified in the policy"
 }
@@ -61,3 +61,4 @@ variable "enabled" {
   default     = "true"
   description = "Set to false to prevent the module from creating any resources"
 }
+
