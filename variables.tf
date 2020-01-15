@@ -32,6 +32,7 @@ variable "tags" {
 }
 
 variable "kms_key_arn" {
+  type        = string
   description = "ARN of the KMS key which will decrypt secret strings"
 }
 
@@ -48,7 +49,8 @@ variable "ssm_resources" {
 }
 
 variable "force_destroy" {
-  default     = "false"
+  type        = bool
+  default     = false
   description = "Destroy even if it has non-Terraform-managed IAM access keys, login profiles or MFA devices"
 }
 
@@ -59,6 +61,7 @@ variable "path" {
 }
 
 variable "enabled" {
-  default     = "true"
+  type        = bool
+  default     = true
   description = "Set to false to prevent the module from creating any resources"
 }
